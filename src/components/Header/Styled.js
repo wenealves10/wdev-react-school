@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { primaryColor } from '../../config/colors';
+import * as colors from '../../config/colors';
 
 export const Nav = styled.nav`
-  background-color: ${primaryColor};
+  background-color: ${colors.primaryColor};
   padding: 15px;
   display: flex;
   align-items: center;
@@ -10,11 +10,13 @@ export const Nav = styled.nav`
   a {
     color: white;
     margin-left: 20px;
-  }
-  span {
-    color: white;
-    margin-left: 5px;
-    font-size: 1em;
-    font-weight: bold;
+    text-align: center;
+    span {
+      color: white;
+      margin-left: 5px;
+      display: block;
+      font-size: 1em;
+      font-weight: bold;
+    }
   }
 `;

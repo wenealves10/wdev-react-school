@@ -1,34 +1,26 @@
 import React from 'react';
-import { FaUserCircle, FaSignInAlt } from 'react-icons/fa';
-import { Button, Title } from './Styled';
+import { FaSignInAlt, FaUserCircle } from 'react-icons/fa';
+import { Button, Form } from './Styled';
 import { Container } from '../../styles/Global';
-import Forms from '../../components/Form';
+import Input from '../../components/Form/Input';
 
 export default function Login() {
+  function handleSubmit(data) {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  }
   return (
     <Container>
-      <Title>
-        <FaUserCircle size={50} />
-      </Title>
-      <Forms>
+      <FaUserCircle size={42} />
+      <Form onSubmit={handleSubmit}>
         <span>E-mail</span>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Digite seu e-mail"
-        />
+        <Input type="email" name="email" placeholder="Digite seu e-mail" />
         <span>Senha</span>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Digite sua senha"
-        />
+        <Input type="password" name="password" placeholder="Digite sua senha" />
         <Button type="submit">
           <FaSignInAlt size={30} />
         </Button>
-      </Forms>
+      </Form>
     </Container>
   );
 }

@@ -9,5 +9,4 @@ export const Button = styled.button`
   height: 40px;
   margin-top: 18px;
   margin-bottom: 20px;
-  color: ${(props) => (props.isColor ? 'white' : 'blue')};
 `;

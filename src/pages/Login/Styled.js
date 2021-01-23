@@ -5,7 +5,7 @@ export const Title = styled.h1`
 `;
 
 export const Button = styled.button`
-  width: 100px;
+  width: 100%;
   height: 40px;
   margin-top: 18px;
   margin-bottom: 20px;

@@ -7,7 +7,7 @@ export default () => (
   <Nav>
     <Link to="/login">
       <FaUserLock size={24} />
+      <span>Faça Login</span>
     </Link>
-    <span>Faça Login</span>
   </Nav>
 );

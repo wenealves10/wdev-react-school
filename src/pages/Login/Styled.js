@@ -20,6 +20,20 @@ export const Form = styled(Unform)`
     position: absolute;
     top: 59px;
   }
+  span.password-error {
+    font-size: 0.9em;
+    color: red;
+    align-self: flex-start;
+    position: absolute;
+    top: 92px;
+  }
+  span.email-error {
+    font-size: 0.9em;
+    color: red;
+    align-self: flex-start;
+    position: absolute;
+    top: 33px;
+  }
 
   input {
     margin-bottom: 30px;
@@ -32,6 +46,7 @@ export const Form = styled(Unform)`
     border-top: none;
     border-left: none;
     border-right: none;
+    border-color: #ccc;
   }
 `;
 

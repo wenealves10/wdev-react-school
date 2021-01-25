@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FaAt, FaLock, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { Button, Form, FaRegEye, FaRegEyeSlash } from './Styled';
+import { Button, Form, FaRegEye, FaRegEyeSlash, Title, Link } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
 // FaRegEye
@@ -46,6 +46,7 @@ export default function Login() {
   return (
     <Container>
       <FaUserCircle size={50} />
+      <Title>Admin System</Title>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <span className="email">
           <FaAt size={24} />
@@ -70,6 +71,9 @@ export default function Login() {
           name="password"
           placeholder="Digite sua senha"
         />
+        <Link to="/forgot/password">
+          <p>Esqueci minha senha</p>
+        </Link>
         <Button type="submit">
           <FaSignInAlt size={30} />
         </Button>

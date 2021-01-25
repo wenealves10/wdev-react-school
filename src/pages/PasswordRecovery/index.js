@@ -5,7 +5,7 @@ import { Container } from '../../styles/Global';
 export default function PasswordRecovery() {
   return (
     <Container>
-      <Title>PasswordRecovery</Title>
+      <Title>Password Recovery</Title>
     </Container>
   );
 }

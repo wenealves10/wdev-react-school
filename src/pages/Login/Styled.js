@@ -47,6 +47,9 @@ export const Form = styled(Unform)`
     border-left: none;
     border-right: none;
     border-color: #ccc;
+    &:focus {
+      border-bottom-color: ${colors.infoColor};
+    }
   }
 `;
 

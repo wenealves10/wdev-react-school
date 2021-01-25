@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FaAt, FaLock, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { Button, Form, FaRegEye, FaRegEyeSlash } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
@@ -13,10 +14,10 @@ export default function Login() {
       const schema = Yup.object().shape({
         email: Yup.string()
           .email('E-mail Inválido')
-          .required('E-mail é Obrigatório'),
+          .required('E-mail é obrigatório'),
         password: Yup.string()
           .min(4, 'No mínimo 4 caracteres')
-          .required('Senha Obrigatória'),
+          .required('Senha é obrigatória'),
       });
       await schema.validate(data, {
         abortEarly: false,
@@ -30,6 +31,10 @@ export default function Login() {
           errorMessages[erro.path] = erro.message;
         });
         formRef.current.setErrors(errorMessages);
+      } else {
+        toast.error('E-mail ou Senha Incorreto', {
+          toastId: 'errorLogin',
+        });
       }
     }
   }

@@ -17,7 +17,7 @@ export default createGlobalStyle`
     background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
     background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
     font-family: sans-serif;
-    color: ${colors.primaryColor}
+    color: ${colors.primaryColor};
   }
 
   button{
@@ -28,6 +28,10 @@ export default createGlobalStyle`
     font-size: 0.8em;
     font-weight: 700;
     border-radius: 4px;
+    transition: 150ms;
+    &:hover{
+      filter: brightness(70%);
+    }
   }
 
   ul{
@@ -51,6 +55,7 @@ export default createGlobalStyle`
 
 export const Container = styled.section`
   max-width: 700px;
+  min-width: 350px;
   background: #fff;
   margin: 30px auto;
   border-radius: 8px;

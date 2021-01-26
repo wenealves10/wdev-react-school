@@ -58,7 +58,9 @@ export const Form = styled(Unform)`
   }
 `;
 
-export const Title = styled.h3``;
+export const Title = styled.h3`
+  margin-bottom: 25px;
+`;
 
 export const FaRegEye = styled(Eye)`
   font-size: 1.2em;
@@ -81,9 +83,11 @@ export const FaRegEyeSlash = styled(NoEye)`
 `;
 
 export const Button = styled.button`
-  width: 100%;
-  height: 30px;
+  width: 70%;
+  height: 40px;
   background-color: ${colors.primaryColor};
+  padding: 5px;
+  margin: 15px auto 0;
 `;
 
 export const Link = styled(Links)`

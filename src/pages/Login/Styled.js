@@ -26,7 +26,7 @@ export const Form = styled(Unform)`
   span.password-error {
     font-size: 0.8em;
     margin-left: 10px;
-    color: red;
+    color: ${colors.primaryColor};
     align-self: flex-start;
     position: absolute;
     top: 92px;
@@ -34,7 +34,7 @@ export const Form = styled(Unform)`
   span.email-error {
     font-size: 0.8em;
     margin-left: 10px;
-    color: red;
+    color: ${colors.primaryColor};
     align-self: flex-start;
     position: absolute;
     top: 33px;

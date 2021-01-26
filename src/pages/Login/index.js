@@ -29,6 +29,7 @@ export default function Login() {
         const errorMessages = {};
         error.inner.forEach((erro) => {
           errorMessages[erro.path] = erro.message;
+          formRef.current.clearField(erro.path);
         });
         formRef.current.setErrors(errorMessages);
       } else {

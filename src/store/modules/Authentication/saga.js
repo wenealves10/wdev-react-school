@@ -5,6 +5,7 @@ import { takeLatest, all } from 'redux-saga/effects';
 import * as types from '../types';
 
 function* Authentication({ payload }) {
+  // eslint-disable-next-line no-console
   yield console.log('SAGA', payload);
 }
 

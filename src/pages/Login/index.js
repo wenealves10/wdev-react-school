@@ -1,14 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { FaAt, FaLock, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { Button, Form, FaRegEye, FaRegEyeSlash, Title, Link } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
-// FaRegEye
+import * as actions from '../../store/modules/Authentication/actions';
+
 export default function Login() {
   const [eye, setEye] = useState(false);
   const formRef = useRef(null);
+  const dispatch = useDispatch();
   async function handleSubmit(data, { reset }) {
     try {
       const schema = Yup.object().shape({
@@ -24,6 +26,7 @@ export default function Login() {
       });
       formRef.current.setErrors({});
       reset();
+      dispatch(actions.LoginRequest(data));
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -32,10 +35,6 @@ export default function Login() {
           formRef.current.clearField(erro.path);
         });
         formRef.current.setErrors(errorMessages);
-      } else {
-        toast.error('E-mail ou Senha Incorreto', {
-          toastId: 'errorLogin',
-        });
       }
     }
   }

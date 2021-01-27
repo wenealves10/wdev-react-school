@@ -1,18 +1,22 @@
 import * as types from '../types';
 
 const initialState = {
-  dataUser: {},
+  isLoggedIn: false,
+  token: '',
+  user: {},
+  isLoading: false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case types.CLICK_BUTTON_SUCCESS: {
+    case types.LOGIN_SUCCESS: {
       return state;
     }
-    case types.CLICK_BUTTON_FAILURE: {
+    case types.LOGIN_FAILURE: {
       return state;
     }
-    case types.CLICK_BUTTON_REQUEST: {
+    case types.LOGIN_REQUEST: {
+      console.log('Reducer', action.payload);
       return state;
     }
 

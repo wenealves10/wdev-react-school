@@ -88,6 +88,13 @@ export const Button = styled.button`
   background-color: ${colors.primaryColor};
   padding: 5px;
   margin: 15px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 1.4em;
+    margin-right: 15px;
+  }
 `;
 
 export const Link = styled(Links)`

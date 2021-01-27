@@ -2,15 +2,17 @@ import React, { useState, useRef } from 'react';
 import { FaAt, FaLock, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { get } from 'lodash';
 import { Button, Form, FaRegEye, FaRegEyeSlash, Title, Link } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
 import * as actions from '../../store/modules/Authentication/actions';
 
-export default function Login() {
+export default function Login(props) {
   const [eye, setEye] = useState(false);
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const prevPatch = get(props, 'location.state.prevPath', '/');
   async function handleSubmit(data, { reset }) {
     try {
       const schema = Yup.object().shape({
@@ -26,7 +28,8 @@ export default function Login() {
       });
       formRef.current.setErrors({});
       reset();
-      dispatch(actions.LoginRequest(data));
+
+      dispatch(actions.LoginRequest({ ...data, prevPatch }));
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -75,6 +78,7 @@ export default function Login() {
           <p>Esqueci minha senha</p>
         </Link>
         <Button type="submit">
+          <span>Entrar</span>
           <FaSignInAlt size={30} />
         </Button>
       </Form>

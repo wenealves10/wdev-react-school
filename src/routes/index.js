@@ -16,50 +16,30 @@ export default function Routes() {
   return (
     <Switch>
       <PrivateRoute exact path="/" component={Students} isAuthentication />
+      <PrivateRoute path="/student/:id" component={Student} isAuthentication />
       <PrivateRoute
-        exact
-        path="/student/:id"
-        component={Student}
-        isAuthentication
-      />
-      <PrivateRoute
-        exact
         path="/photos/student/:id"
         component={PhotosStudents}
         isAuthentication
       />
       <PrivateRoute
-        exact
         path="/report/student/:id"
         component={ReportStudent}
         isAuthentication
       />
       <PrivateRoute
-        exact
         path="/profile/user"
         component={ProfileUser}
         isAuthentication
       />
+      <PrivateRoute path="/register" component={Register} isAuthentication />
+      <PrivateRoute path="/login" component={Login} isAuthentication={false} />
       <PrivateRoute
-        exact
-        path="/register"
-        component={Register}
-        isAuthentication
-      />
-      <PrivateRoute
-        exact
-        path="/login"
-        component={Login}
-        isAuthentication={false}
-      />
-      <PrivateRoute
-        exact
         path="/forgot/password"
         component={ForgotPassword}
         isAuthentication={false}
       />
       <PrivateRoute
-        exact
         path="/recovery/password"
         component={PasswordRecovery}
         isAuthentication={false}

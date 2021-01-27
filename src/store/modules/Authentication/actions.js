@@ -1,21 +1,21 @@
 import * as types from '../types';
 
-export function clickButtonSuccess(data) {
+export function LoginSuccess(data) {
   return {
-    type: types.CLICK_BUTTON_SUCCESS,
+    type: types.LOGIN_SUCCESS,
     payload: data,
   };
 }
 
-export function clickButtonFailure() {
+export function LoginFailure() {
   return {
-    type: types.CLICK_BUTTON_FAILURE,
+    type: types.LOGIN_FAILURE,
   };
 }
 
-export function clickButtonRequest(data) {
+export function LoginRequest(data) {
   return {
-    type: types.CLICK_BUTTON_REQUEST,
+    type: types.LOGIN_REQUEST,
     payload: data,
   };
 }

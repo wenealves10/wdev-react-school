@@ -37,6 +37,12 @@ export default function Login(props) {
           errorMessages[erro.path] = erro.message;
           formRef.current.clearField(erro.path);
         });
+        if (errorMessages.email !== undefined) {
+          formRef.current.getFieldRef('email').focus();
+        } else {
+          formRef.current.getFieldRef('password').focus();
+        }
+
         formRef.current.setErrors(errorMessages);
       }
     }
@@ -74,9 +80,11 @@ export default function Login(props) {
           name="password"
           placeholder="Digite sua senha"
         />
+
         <Link to="/forgot/password">
           <p>Esqueci minha senha</p>
         </Link>
+
         <Button type="submit">
           <span>Entrar</span>
           <FaSignInAlt size={30} />

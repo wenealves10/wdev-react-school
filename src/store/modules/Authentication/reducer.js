@@ -1,4 +1,5 @@
 import * as types from '../types';
+import axios from '../../../services/axios';
 
 const initialState = {
   isLoggedIn: false,
@@ -10,14 +11,18 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS: {
-      return state;
+      const newState = { ...state };
+      newState.user.name = action.payload.user.name;
+      newState.user.email = action.payload.user.email;
+      newState.user.id = action.payload.user.id;
+      newState.token = action.payload.user.token;
+      newState.isLoggedIn = true;
+      return newState;
     }
     case types.LOGIN_FAILURE: {
-      return state;
-    }
-    case types.LOGIN_REQUEST: {
-      console.log('Reducer', action.payload);
-      return state;
+      const newState = { ...initialState };
+      delete axios.defaults.headers.Authorization;
+      return newState;
     }
 
     default: {

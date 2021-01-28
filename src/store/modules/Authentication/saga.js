@@ -57,6 +57,33 @@ function* forgotPassword({ payload }) {
   }
 }
 
+function* recoveryPassword({ payload }) {
+  try {
+    const { email, token, password } = payload;
+    const response = yield call(
+      axios.post,
+      '/auth/forget_password/reset_password',
+      { email, token, password }
+    );
+    yield put(actionsLogin.RecoveryPasswordSuccess({ ...response.data }));
+    const status = get(response, 'status', 0);
+    if (status === 200) {
+      toast.success('Sua senha foi atualizada com sucesso!', {
+        toastId: 'Recovery',
+      });
+      history.push('/login');
+    }
+  } catch (error) {
+    const errors = get(error, 'response.data.error', []);
+    errors.forEach((err) => {
+      toast.error(`${err}!!`, {
+        toastId: `${err}`,
+      });
+    });
+    yield put(actionsLogin.RecoveryPasswordFailure());
+  }
+}
+
 function persistHydrate({ payload }) {
   const token = get(payload, 'auth.token', '');
   if (!token) return;
@@ -67,4 +94,5 @@ export default all([
   takeLatest(types.LOGIN_REQUEST, Authentication),
   takeLatest(types.PERSIST_HYDRATE, persistHydrate),
   takeLatest(types.FORGOT_PASSWORD_REQUEST, forgotPassword),
+  takeLatest(types.RECOVERY_PASSWORD_REQUEST, recoveryPassword),
 ]);

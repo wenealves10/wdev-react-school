@@ -16,7 +16,6 @@ export default function PrivateRoute({
       />
     );
   }
-
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <Route {...rest} component={Component} />;
 }

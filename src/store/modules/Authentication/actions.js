@@ -19,3 +19,23 @@ export function LoginRequest(data) {
     payload: data,
   };
 }
+
+export function ForgotPasswordSuccess(data) {
+  return {
+    type: types.FORGOT_PASSWORD_SUCCESS,
+    payload: data,
+  };
+}
+
+export function ForgotPasswordFailure() {
+  return {
+    type: types.FORGOT_PASSWORD_FAILURE,
+  };
+}
+
+export function ForgotPasswordRequest(data) {
+  return {
+    type: types.FORGOT_PASSWORD_REQUEST,
+    payload: data,
+  };
+}

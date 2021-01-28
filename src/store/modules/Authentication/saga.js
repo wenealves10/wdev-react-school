@@ -30,6 +30,28 @@ function* Authentication({ payload }) {
   }
 }
 
+function* forgotPassword({ payload }) {
+  try {
+    const { email } = payload;
+    const response = yield call(axios.post, '/auth/forget_password', { email });
+    const status = get(response, 'status', 0);
+    if (status === 200) {
+      toast.success('Código de Verificação foi enviado para seu E-mail!', {
+        toastId: 'Forgot',
+      });
+      history.push('/recovery/password');
+    }
+  } catch (error) {
+    const status = get(error, 'response.status', []);
+    if (status === 404) {
+      toast.error('Usuário não existe', {
+        toastId: 'ErrorEmail',
+      });
+    }
+    yield put(actionsLogin.ForgotPasswordFailure());
+  }
+}
+
 function persistHydrate({ payload }) {
   const token = get(payload, 'auth.token', '');
   if (!token) return;
@@ -39,4 +61,5 @@ function persistHydrate({ payload }) {
 export default all([
   takeLatest(types.LOGIN_REQUEST, Authentication),
   takeLatest(types.PERSIST_HYDRATE, persistHydrate),
+  takeLatest(types.FORGOT_PASSWORD_REQUEST, forgotPassword),
 ]);

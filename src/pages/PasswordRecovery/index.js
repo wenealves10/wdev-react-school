@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 import { FaAt, FaRedoAlt, FaLock } from 'react-icons/fa';
 import { SiJsonwebtokens } from 'react-icons/si';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Form,
   Title,
@@ -13,15 +13,59 @@ import {
 } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
-// import * as actionsForgotPassword from '../../store/modules/Authentication/actions';
+import * as actionsRecovery from '../../store/modules/Authentication/actions';
 
 export default function PasswordRecovery() {
   const [eye, setEye] = useState(false);
   const formRef = useRef(null);
-
+  const dispatch = useDispatch();
   async function handleSubmit(data, { reset }) {
-    console.log(data);
-    reset();
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .email('E-mail inválido')
+          .required('E-mail obrigatório'),
+        token: Yup.string()
+          .min(30, 'mínimo 30 caracteres')
+          .max(45, 'máximo 45 caracteres')
+          .required('Token Obrigatório'),
+        password: Yup.string()
+          .min(6, 'mínimo 6 caracteres')
+          .max(50, 'máximo 50 caracteres')
+          .required('Senha Obrigatória'),
+        passwordRepite: Yup.string()
+          .oneOf([Yup.ref('password')], 'Senha não coincidem')
+          .required('Confirmação de senha obrigatória'),
+      });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+      formRef.current.setErrors({});
+      reset();
+      const { email, token, password } = data;
+      dispatch(
+        actionsRecovery.RecoveryPasswordRequest({ email, token, password })
+      );
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errorMessages = {};
+        error.inner.forEach((erro) => {
+          errorMessages[erro.path] = erro.message;
+          formRef.current.clearField(erro.path);
+        });
+        if (errorMessages.email !== undefined) {
+          formRef.current.getFieldRef('email').focus();
+        } else if (errorMessages.token !== undefined) {
+          formRef.current.getFieldRef('token').focus();
+        } else if (errorMessages.password !== undefined) {
+          formRef.current.getFieldRef('password').focus();
+        } else {
+          formRef.current.getFieldRef('passwordRepite').focus();
+        }
+
+        formRef.current.setErrors(errorMessages);
+      }
+    }
   }
 
   function handleClick() {
@@ -78,7 +122,7 @@ export default function PasswordRecovery() {
 
         <Input
           type={eye ? 'text' : 'password'}
-          name="password-repite"
+          name="passwordRepite"
           placeholder="Repita sua senha novamente"
         />
         <Button>

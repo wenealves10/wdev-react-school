@@ -36,7 +36,7 @@ function* forgotPassword({ payload }) {
     const response = yield call(axios.post, '/auth/forget_password', { email });
     const status = get(response, 'status', 0);
     if (status === 200) {
-      toast.success('Código de Verificação foi enviado para seu E-mail!', {
+      toast.success('Código de verificação foi enviado para seu e-mail!', {
         toastId: 'Forgot',
       });
       history.push('/recovery/password');

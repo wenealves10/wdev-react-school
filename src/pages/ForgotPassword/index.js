@@ -1,12 +1,15 @@
 import React, { useRef } from 'react';
 import * as Yup from 'yup';
 import { FaAt, FaTelegramPlane } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { Form, Title, Paragraph, Button } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
+import * as actionsForgotPassword from '../../store/modules/Authentication/actions';
 
 export default function ForgotPassword() {
   const formRef = useRef(null);
+  const dispatch = useDispatch();
   async function handleSubmit(data, { reset }) {
     try {
       const schema = Yup.object().shape({
@@ -19,6 +22,8 @@ export default function ForgotPassword() {
       });
       formRef.current.setErrors({});
       reset();
+      const { email } = data;
+      dispatch(actionsForgotPassword.ForgotPasswordRequest({ email }));
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errorMessages = {};

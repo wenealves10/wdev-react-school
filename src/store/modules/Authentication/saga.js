@@ -48,6 +48,11 @@ function* forgotPassword({ payload }) {
         toastId: 'ErrorEmail',
       });
     }
+    if (status === 400) {
+      toast.error('Falha no envio de e-mail', {
+        toastId: 'ErrorEmail',
+      });
+    }
     yield put(actionsLogin.ForgotPasswordFailure());
   }
 }

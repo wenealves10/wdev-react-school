@@ -39,3 +39,23 @@ export function ForgotPasswordRequest(data) {
     payload: data,
   };
 }
+
+export function RecoveryPasswordSuccess(data) {
+  return {
+    type: types.RECOVERY_PASSWORD_SUCCESS,
+    payload: data,
+  };
+}
+
+export function RecoveryPasswordFailure() {
+  return {
+    type: types.RECOVERY_PASSWORD_FAILURE,
+  };
+}
+
+export function RecoveryPasswordRequest(data) {
+  return {
+    type: types.RECOVERY_PASSWORD_REQUEST,
+    payload: data,
+  };
+}

@@ -38,13 +38,6 @@ export const Form = styled(Unform)`
     position: absolute;
     top: 59px;
   }
-  span.password {
-    font-size: 1.2em;
-    font-weight: bold;
-    align-self: flex-start;
-    position: absolute;
-    top: 120px;
-  }
   span.password-repite {
     font-size: 1.2em;
     font-weight: bold;
@@ -52,13 +45,21 @@ export const Form = styled(Unform)`
     position: absolute;
     top: 180px;
   }
+  span.password {
+    font-size: 1.2em;
+    font-weight: bold;
+    align-self: flex-start;
+    position: absolute;
+    top: 120px;
+  }
+
   span.password-error {
     font-size: 0.8em;
     margin-left: 10px;
     color: ${colors.primaryColor};
     align-self: flex-start;
     position: absolute;
-    top: 92px;
+    top: 153px;
   }
   span.email-error {
     font-size: 0.8em;
@@ -67,6 +68,22 @@ export const Form = styled(Unform)`
     align-self: flex-start;
     position: absolute;
     top: 33px;
+  }
+  span.token-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+    align-self: flex-start;
+    position: absolute;
+    top: 92px;
+  }
+  span.passwordRepite-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+    align-self: flex-start;
+    position: absolute;
+    top: 212px;
   }
 `;
 

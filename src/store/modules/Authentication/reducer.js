@@ -20,12 +20,22 @@ export default function reducer(state = initialState, action) {
       return newState;
     }
 
-    case types.LOGIN_FAILURE: {
+    case types.RECOVERY_PASSWORD_SUCCESS: {
       const newState = { ...initialState };
       delete axios.defaults.headers.Authorization;
       return newState;
     }
 
+    case types.LOGIN_FAILURE: {
+      const newState = { ...initialState };
+      delete axios.defaults.headers.Authorization;
+      return newState;
+    }
+    case types.RECOVERY_PASSWORD_FAILURE: {
+      const newState = { ...initialState };
+      delete axios.defaults.headers.Authorization;
+      return newState;
+    }
     case types.FORGOT_PASSWORD_FAILURE: {
       const newState = { ...initialState };
       delete axios.defaults.headers.Authorization;

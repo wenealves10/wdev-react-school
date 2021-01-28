@@ -20,7 +20,7 @@ export default function Login(props) {
           .email('E-mail Inválido')
           .required('E-mail é obrigatório'),
         password: Yup.string()
-          .min(4, 'No mínimo 4 caracteres')
+          .min(6, 'No mínimo 6 caracteres')
           .required('Senha é obrigatória'),
       });
       await schema.validate(data, {

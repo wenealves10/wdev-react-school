@@ -5,7 +5,7 @@ import { Container } from '../../styles/Global';
 export default function ProfileUser() {
   return (
     <Container>
-      <Title>ProfileUser</Title>
+      <Title>Perfis de Usuários</Title>
     </Container>
   );
 }

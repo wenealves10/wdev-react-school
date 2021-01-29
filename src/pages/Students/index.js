@@ -46,8 +46,8 @@ export default function Students() {
                 <FaUserCircle size={40} />
               )}
             </Photograph>
-            <span className="dates">{student.name}</span>
-            <span className="dates">{student.email}</span>
+            <span>{student.name}</span>
+            <span>{student.email}</span>
             <Link to={`/student/${student.id}`}>
               <FaEdit size={18} />
             </Link>

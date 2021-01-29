@@ -5,8 +5,7 @@ export const Title = styled.h1`
 `;
 
 export const StudentsContainer = styled.div`
-  text-align: left;
-  margin-top: 8px;
+  margin-top: 10px;
   div + div {
     border-top: 1px solid #eee;
   }
@@ -18,10 +17,6 @@ export const Student = styled.div`
   justify-content: space-between;
   padding: 5px 0;
   color: #000;
-  span.dates {
-    font-size: 0.8em;
-    font-weight: 600;
-  }
 `;
 
 export const Photograph = styled.div`
@@ -32,11 +27,4 @@ export const StudentProfilePhotograph = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-`;
-
-export const Button = styled.button`
-  width: 100px;
-  height: 40px;
-  margin-top: 18px;
-  margin-bottom: 20px;
 `;

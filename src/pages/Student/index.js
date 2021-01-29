@@ -5,7 +5,7 @@ import { Container } from '../../styles/Global';
 export default function Student() {
   return (
     <Container>
-      <Title>Student</Title>
+      <Title>Estudante</Title>
     </Container>
   );
 }

@@ -111,7 +111,7 @@ export default function ProfileUser() {
         <Input name="email" type="email" placeholder="Digite seu e-mail" />
         <Button type="submit">
           <span>Atualizar</span>
-          <GiConfirmed size={20} />
+          <GiConfirmed size={25} />
         </Button>
       </Form>
     </Container>

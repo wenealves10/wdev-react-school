@@ -19,6 +19,13 @@ export default function ProfileUser() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   useEffect(() => {
+    formRef.current.setData({
+      name: 'Carregando...',
+      email: 'Carregando...',
+    });
+    formRef.current.getFieldRef('name').setAttribute('readonly', 'readonly');
+    formRef.current.getFieldRef('email').setAttribute('readonly', 'readonly');
+
     async function getData() {
       try {
         const response = await axios.get('/users/user');
@@ -29,6 +36,8 @@ export default function ProfileUser() {
           toastId: 'error',
         });
       }
+      formRef.current.getFieldRef('name').removeAttribute('readonly');
+      formRef.current.getFieldRef('email').removeAttribute('readonly');
     }
     getData();
   }, []);

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function Input({ name, ...rest }) {
   const inputRef = useRef(null);
-  const { fieldName, registerField, error } = useField(name);
+  const { fieldName, registerField, error, defaultValue } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -17,7 +17,7 @@ export default function Input({ name, ...rest }) {
 
   return (
     <>
-      <input ref={inputRef} {...rest} />
+      <input ref={inputRef} {...rest} defaultValue={defaultValue} />
       {error && <span className={`${name}-error`}>{error}</span>}
     </>
   );

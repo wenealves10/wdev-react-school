@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as Links } from 'react-router-dom';
 
 export const Title = styled.h1`
   font-size: 1.6em;
@@ -17,6 +18,16 @@ export const Student = styled.div`
   justify-content: space-between;
   padding: 5px 0;
   color: #000;
+  span.name_email {
+    font-size: 1em;
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: space-between;
+    strong {
+      font-weight: normal;
+    }
+  }
 `;
 
 export const Photograph = styled.div`
@@ -27,4 +38,8 @@ export const StudentProfilePhotograph = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
+`;
+
+export const Link = styled(Links)`
+  margin-left: 20px;
 `;

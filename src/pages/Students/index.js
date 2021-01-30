@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { FaEdit, FaUserGraduate } from 'react-icons/fa';
+import { IoIosPeople } from 'react-icons/io';
 import { TiUserDelete } from 'react-icons/ti';
 import {
   StudentsContainer,
@@ -32,7 +33,10 @@ export default function Students() {
 
   return (
     <Container>
-      <Title>Estudantes Wdev</Title>
+      <Title>
+        <IoIosPeople size={60} title="Escola Wdev" />
+        <span>Alunos</span>
+      </Title>
       <StudentsContainer>
         {students.map((student) => (
           <Student key={String(student.id)}>
@@ -43,7 +47,7 @@ export default function Students() {
                   alt={student.profiles.filename}
                 />
               ) : (
-                <FaUserCircle size={40} />
+                <FaUserGraduate size={35} />
               )}
             </Photograph>
             <span className="name_email">

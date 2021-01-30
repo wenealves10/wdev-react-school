@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEdit, FaUserCircle } from 'react-icons/fa';
 import { TiUserDelete } from 'react-icons/ti';
@@ -9,6 +8,7 @@ import {
   Student,
   StudentProfilePhotograph,
   Photograph,
+  Link,
 } from './Styled';
 import { Container } from '../../styles/Global';
 import axios from '../../services/axios';
@@ -46,14 +46,18 @@ export default function Students() {
                 <FaUserCircle size={40} />
               )}
             </Photograph>
-            <span>{student.name}</span>
-            <span>{student.email}</span>
-            <Link to={`/student/${student.id}`}>
-              <FaEdit size={18} />
-            </Link>
-            <Link to={`/student/${student.id}`}>
-              <TiUserDelete size={24} />
-            </Link>
+            <span className="name_email">
+              <strong>{student.name}</strong>
+              <strong>{student.email}</strong>
+            </span>
+            <span className="button">
+              <Link to={`/student/${student.id}`}>
+                <FaEdit size={18} />
+              </Link>
+              <Link to={`/student/${student.id}`}>
+                <TiUserDelete size={24} />
+              </Link>
+            </span>
           </Student>
         ))}
       </StudentsContainer>

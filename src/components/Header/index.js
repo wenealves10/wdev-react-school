@@ -23,7 +23,7 @@ export default function Header() {
           </Link>
           <Link to="/profile/user">
             <FaUserAlt size={24} />
-            <span>Usuários</span>
+            <span>Usuário</span>
           </Link>
           <Link
             to="/login"

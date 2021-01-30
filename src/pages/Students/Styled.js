@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import { Link as Links } from 'react-router-dom';
 
-export const Title = styled.h1`
-  font-size: 1.6em;
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  span {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
 `;
 
 export const StudentsContainer = styled.div`

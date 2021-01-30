@@ -4,6 +4,8 @@ import * as colors from '../../config/colors';
 export const Nav = styled.nav`
   background-color: ${colors.primaryColor};
   padding: 15px;
+  width: 100%;
+  min-width: 508px;
   display: flex;
   align-items: center;
   justify-content: center;

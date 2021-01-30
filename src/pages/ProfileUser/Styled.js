@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
+import { FaRegEye as Eye, FaRegEyeSlash as NoEye } from 'react-icons/fa';
 import * as colors from '../../config/colors';
 
 export const Title = styled.h1`
@@ -12,19 +13,54 @@ export const Form = styled(Unform)`
   position: relative;
   max-width: 500px;
   margin: 0 auto;
-  span.email {
+
+  span.name {
     font-size: 1.2em;
     font-weight: bold;
     align-self: flex-start;
     position: absolute;
   }
-  span.password {
+  span.email {
     font-size: 1.2em;
     font-weight: bold;
     align-self: flex-start;
     position: absolute;
     top: 59px;
   }
+  span.password {
+    font-size: 1.2em;
+    font-weight: bold;
+    align-self: flex-start;
+    position: absolute;
+    top: 120px;
+  }
+
+  span.password-repite {
+    font-size: 1.2em;
+    font-weight: bold;
+    align-self: flex-start;
+    position: absolute;
+    top: 180px;
+  }
+
+  span.name-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+    align-self: flex-start;
+    position: absolute;
+    top: 33px;
+  }
+
+  span.email-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+    align-self: flex-start;
+    position: absolute;
+    top: 94px;
+  }
+
   span.password-error {
     font-size: 0.8em;
     margin-left: 10px;
@@ -33,13 +69,14 @@ export const Form = styled(Unform)`
     position: absolute;
     top: 92px;
   }
-  span.email-error {
+
+  span.passwordRepite-error {
     font-size: 0.8em;
     margin-left: 10px;
     color: ${colors.primaryColor};
     align-self: flex-start;
     position: absolute;
-    top: 33px;
+    top: 212px;
   }
 
   input {
@@ -60,9 +97,37 @@ export const Form = styled(Unform)`
   }
 `;
 
+export const FaRegEye = styled(Eye)`
+  font-size: 1.2em;
+  font-weight: bold;
+  align-self: flex-start;
+  position: absolute;
+  top: ${(props) => props.top};
+  right: 10px;
+  cursor: pointer;
+`;
+
+export const FaRegEyeSlash = styled(NoEye)`
+  font-size: 1.2em;
+  font-weight: bold;
+  align-self: flex-start;
+  position: absolute;
+  top: ${(props) => props.top};
+  right: 10px;
+  cursor: pointer;
+`;
+
 export const Button = styled.button`
-  width: 100px;
+  width: 70%;
   height: 40px;
-  margin-top: 18px;
-  margin-bottom: 20px;
+  background-color: ${colors.primaryColor};
+  padding: 5px;
+  margin: 0px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 1.4em;
+    margin-right: 15px;
+  }
 `;

@@ -55,7 +55,7 @@ export default createGlobalStyle`
 
 export const Container = styled.section`
   max-width: 700px;
-  min-width: 350px;
+  min-width: 508px;
   background: #fff;
   margin: 30px auto;
   border-radius: 8px;

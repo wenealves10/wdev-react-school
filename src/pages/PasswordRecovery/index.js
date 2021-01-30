@@ -125,7 +125,7 @@ export default function PasswordRecovery() {
           name="passwordRepite"
           placeholder="Repita sua senha novamente"
         />
-        <Button>
+        <Button type="submit">
           <span>Redefinir</span>
           <FaRedoAlt size={20} />
         </Button>

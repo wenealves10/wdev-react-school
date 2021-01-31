@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
 import { FaRegEye as Eye, FaRegEyeSlash as NoEye } from 'react-icons/fa';
 import Rodals from 'rodal';
+import 'rodal/lib/rodal.css';
 import * as colors from '../../config/colors';
 
 export const Title = styled.h1`
@@ -135,6 +136,9 @@ export const Button = styled.button`
 
 export const Rodal = styled(Rodals)`
   position: relative;
+  p {
+    color: ${colors.primaryDarkColor};
+  }
   div.button-options {
     display: flex;
     position: absolute;

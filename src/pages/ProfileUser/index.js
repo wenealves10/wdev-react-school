@@ -6,41 +6,32 @@ import { GiConfirmed } from 'react-icons/gi';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import { Title, Form, Button, Rodal } from './Styled';
+import { Title, Form, Button, Rodal, Loading } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
 import axios from '../../services/axios';
-import history from '../../services/history';
 import * as actions from '../../store/modules/Authentication/actions';
+import * as colors from '../../config/colors';
 
 export default function ProfileUser() {
   const formRef = useRef(null);
-  const buttonRef = useRef(null);
   const [hide, setHide] = useState(false);
   const user = useSelector((state) => state.auth.user);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    formRef.current.setData({
-      name: 'Carregando...',
-      email: 'Carregando...',
-    });
-    formRef.current.getFieldRef('name').setAttribute('readonly', 'readonly');
-    formRef.current.getFieldRef('email').setAttribute('readonly', 'readonly');
-    buttonRef.current.style.display = 'none';
-
     async function getData() {
       try {
         const response = await axios.get('/users/user');
         const { name, email } = get(response.data, 'user', '');
         formRef.current.setData({ name, email });
+        setIsLoading(false);
       } catch (err) {
         toast.error('Ocorreu um erro!', {
           toastId: 'error',
         });
+        setIsLoading(false);
       }
-      formRef.current.getFieldRef('name').removeAttribute('readonly');
-      formRef.current.getFieldRef('email').removeAttribute('readonly');
-      buttonRef.current.style.display = 'flex';
     }
     getData();
   }, []);
@@ -63,8 +54,8 @@ export default function ProfileUser() {
       toast.success('Perfil atualizado com sucesso!', {
         toastId: 'put',
       });
+      setIsLoading(false);
       if (user.email !== data.email) dispatch(actions.LoginFailure());
-      history.push('/profile/user');
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -84,53 +75,62 @@ export default function ProfileUser() {
         toast.error('Ocorreu um erro!', {
           toastId: 'error',
         });
+        setIsLoading(false);
       }
     }
   }
 
   function handleClickModal() {
-    formRef.current.submitForm();
     setHide(false);
+    setIsLoading(true);
+    formRef.current.submitForm();
   }
 
   return (
-    <Container>
-      <Title>
-        <FaUserEdit size={60} />
-      </Title>
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <span className="name">
-          <FaUser size={24} />
-        </span>
-        <Input name="name" type="text" placeholder="Digite seu nome" />
+    <Loading
+      isLoading={isLoading}
+      backgroundColor={colors.backgroundColor}
+      foregroundColor={colors.foregroundColor}
+    >
+      <Container>
+        <Title>
+          <FaUserEdit size={60} />
+        </Title>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <span className="name">
+            <FaUser size={24} />
+          </span>
+          <Input name="name" type="text" placeholder="Digite seu nome" />
 
-        <span className="email">
-          <FaAt size={24} />
-        </span>
-        <Input name="email" type="email" placeholder="Digite seu e-mail" />
-      </Form>
-      <Button ref={buttonRef} onClick={() => setHide(true)}>
-        <span>Atualizar</span>
-        <GiConfirmed size={25} />
-      </Button>
-      <Rodal
-        visible={hide}
-        onClose={() => setHide(false)}
-        animation="flip"
-        showMask
-      >
-        <Title>Atualizar Perfil?</Title>
-        <p style={{ marginTop: 50 }}>
-          Caso queira atualizar a senha
-          <Link to="/forgot/password">
-            <strong> Clique Aqui</strong>
-          </Link>
-        </p>
-        <div className="button-options">
-          <Button onClick={handleClickModal}>Sim</Button>
-          <Button onClick={() => setHide(false)}>Não</Button>
-        </div>
-      </Rodal>
-    </Container>
+          <span className="email">
+            <FaAt size={24} />
+          </span>
+          <Input name="email" type="email" placeholder="Digite seu e-mail" />
+        </Form>
+        <Button onClick={() => setHide(true)}>
+          <span>Atualizar</span>
+          <GiConfirmed size={25} />
+        </Button>
+        <Rodal
+          visible={hide}
+          onClose={() => setHide(false)}
+          animation="zoom"
+          showMask
+          duration={0}
+        >
+          <Title>Atualizar Perfil?</Title>
+          <p style={{ marginTop: 50 }}>
+            Caso queira atualizar a senha
+            <Link to="/forgot/password">
+              <strong> Clique Aqui</strong>
+            </Link>
+          </p>
+          <div className="button-options">
+            <Button onClick={handleClickModal}>Sim</Button>
+            <Button onClick={() => setHide(false)}>Não</Button>
+          </div>
+        </Rodal>
+      </Container>
+    </Loading>
   );
 }

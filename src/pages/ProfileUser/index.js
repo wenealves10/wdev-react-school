@@ -6,7 +6,6 @@ import { GiConfirmed } from 'react-icons/gi';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import 'rodal/lib/rodal.css';
 import { Title, Form, Button, Rodal } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
@@ -114,7 +113,12 @@ export default function ProfileUser() {
         <span>Atualizar</span>
         <GiConfirmed size={25} />
       </Button>
-      <Rodal visible={hide} onClose={() => setHide(false)} animation="flip">
+      <Rodal
+        visible={hide}
+        onClose={() => setHide(false)}
+        animation="flip"
+        showMask
+      >
         <Title>Atualizar Perfil?</Title>
         <p style={{ marginTop: 50 }}>
           Caso queira atualizar a senha

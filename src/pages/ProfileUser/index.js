@@ -27,7 +27,7 @@ export default function ProfileUser() {
     });
     formRef.current.getFieldRef('name').setAttribute('readonly', 'readonly');
     formRef.current.getFieldRef('email').setAttribute('readonly', 'readonly');
-    buttonRef.current.setAttribute('disabled', 'disabled');
+    buttonRef.current.style.display = 'none';
 
     async function getData() {
       try {
@@ -41,7 +41,7 @@ export default function ProfileUser() {
       }
       formRef.current.getFieldRef('name').removeAttribute('readonly');
       formRef.current.getFieldRef('email').removeAttribute('readonly');
-      buttonRef.current.removeAttribute('disabled');
+      buttonRef.current.style.display = 'flex';
     }
     getData();
   }, []);

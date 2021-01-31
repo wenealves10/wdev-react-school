@@ -3,6 +3,7 @@ import { Form as Unform } from '@unform/web';
 import { FaRegEye as Eye, FaRegEyeSlash as NoEye } from 'react-icons/fa';
 import Rodals from 'rodal';
 import 'rodal/lib/rodal.css';
+import Loadings from 'styled-content-loader';
 import * as colors from '../../config/colors';
 
 export const Title = styled.h1`
@@ -149,3 +150,5 @@ export const Rodal = styled(Rodals)`
     }
   }
 `;
+
+export const Loading = styled(Loadings)``;

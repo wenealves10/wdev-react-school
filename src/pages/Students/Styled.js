@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link as Links } from 'react-router-dom';
+import Loadings from 'styled-content-loader';
 
 export const Title = styled.div`
   display: flex;
@@ -50,3 +51,5 @@ export const StudentProfilePhotograph = styled.img`
 export const Link = styled(Links)`
   margin-left: 20px;
 `;
+
+export const Loading = styled(Loadings)``;

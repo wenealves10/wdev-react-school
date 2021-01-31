@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
 import { FaRegEye as Eye, FaRegEyeSlash as NoEye } from 'react-icons/fa';
+import Rodals from 'rodal';
 import * as colors from '../../config/colors';
 
 export const Title = styled.h1`
@@ -129,5 +130,18 @@ export const Button = styled.button`
   span {
     font-size: 1.4em;
     margin-right: 15px;
+  }
+`;
+
+export const Rodal = styled(Rodals)`
+  position: relative;
+  div.button-options {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    button {
+      width: 30%;
+    }
   }
 `;

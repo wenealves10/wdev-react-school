@@ -55,7 +55,7 @@ export default function Login(props) {
   return (
     <Container>
       <FaUserCircle size={50} />
-      <Title>Admin System</Title>
+      <Title>Admin Wdev</Title>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <span className="email">
           <FaAt size={24} />

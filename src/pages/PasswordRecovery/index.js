@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { FaAt, FaRedoAlt, FaLock } from 'react-icons/fa';
 import { SiJsonwebtokens } from 'react-icons/si';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Form,
   Title,
@@ -13,12 +13,14 @@ import {
 } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
+import Loading from '../../components/Loading';
 import * as actionsRecovery from '../../store/modules/Authentication/actions';
 
 export default function PasswordRecovery() {
   const [eye, setEye] = useState(false);
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.auth.isLoading);
   async function handleSubmit(data, { reset }) {
     try {
       const schema = Yup.object().shape({
@@ -74,6 +76,7 @@ export default function PasswordRecovery() {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <Title>Criar uma nova senha</Title>
       <Paragraph>
         Verifique sua caixa de entrada de e-mail para obter um código para

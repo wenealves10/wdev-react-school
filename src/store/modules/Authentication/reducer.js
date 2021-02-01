@@ -17,6 +17,7 @@ export default function reducer(state = initialState, action) {
       newState.user.id = action.payload.user.id;
       newState.token = action.payload.user.token;
       newState.isLoggedIn = true;
+      newState.isLoading = false;
       return newState;
     }
 
@@ -26,16 +27,41 @@ export default function reducer(state = initialState, action) {
       return newState;
     }
 
+    case types.LOGIN_REQUEST: {
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+
     case types.LOGIN_FAILURE: {
       const newState = { ...initialState };
       delete axios.defaults.headers.Authorization;
       return newState;
     }
+
+    case types.RECOVERY_PASSWORD_REQUEST: {
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+
     case types.RECOVERY_PASSWORD_FAILURE: {
       const newState = { ...initialState };
       delete axios.defaults.headers.Authorization;
       return newState;
     }
+
+    case types.FORGOT_PASSWORD_REQUEST: {
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+
+    case types.FORGOT_PASSWORD_SUCCESS: {
+      const newState = { ...initialState };
+      return newState;
+    }
+
     case types.FORGOT_PASSWORD_FAILURE: {
       const newState = { ...initialState };
       delete axios.defaults.headers.Authorization;

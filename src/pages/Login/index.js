@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { FaAt, FaLock, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
 import { Button, Form, FaRegEye, FaRegEyeSlash, Title, Link } from './Styled';
 import { Container } from '../../styles/Global';
 import Input from '../../components/Form/Input';
 import * as actions from '../../store/modules/Authentication/actions';
+import Loading from '../../components/Loading';
 
 export default function Login(props) {
   const [eye, setEye] = useState(false);
+  const isLoading = useSelector((state) => state.auth.isLoading);
   const formRef = useRef(null);
   const dispatch = useDispatch();
   const prevPatch = get(props, 'location.state.prevPath', '/');
@@ -54,6 +56,7 @@ export default function Login(props) {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <FaUserCircle size={50} />
       <Title>Admin Wdev</Title>
       <Form ref={formRef} onSubmit={handleSubmit}>

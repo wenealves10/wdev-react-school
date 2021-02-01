@@ -21,12 +21,6 @@ export default function reducer(state = initialState, action) {
       return newState;
     }
 
-    case types.RECOVERY_PASSWORD_SUCCESS: {
-      const newState = { ...initialState };
-      delete axios.defaults.headers.Authorization;
-      return newState;
-    }
-
     case types.LOGIN_REQUEST: {
       const newState = { ...state };
       newState.isLoading = true;
@@ -39,6 +33,12 @@ export default function reducer(state = initialState, action) {
       return newState;
     }
 
+    case types.RECOVERY_PASSWORD_SUCCESS: {
+      const newState = { ...initialState };
+      delete axios.defaults.headers.Authorization;
+      return newState;
+    }
+
     case types.RECOVERY_PASSWORD_REQUEST: {
       const newState = { ...state };
       newState.isLoading = true;
@@ -46,8 +46,8 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.RECOVERY_PASSWORD_FAILURE: {
-      const newState = { ...initialState };
-      delete axios.defaults.headers.Authorization;
+      const newState = { ...state };
+      newState.isLoading = false;
       return newState;
     }
 
@@ -58,13 +58,14 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.FORGOT_PASSWORD_SUCCESS: {
-      const newState = { ...initialState };
+      const newState = { ...state };
+      newState.isLoading = false;
       return newState;
     }
 
     case types.FORGOT_PASSWORD_FAILURE: {
-      const newState = { ...initialState };
-      delete axios.defaults.headers.Authorization;
+      const newState = { ...state };
+      newState.isLoading = false;
       return newState;
     }
 

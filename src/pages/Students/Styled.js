@@ -74,6 +74,22 @@ export const Button = styled.button`
   }
 `;
 
+export const AddStudent = styled.button`
+  width: 70%;
+  height: 40px;
+  border-radius: 4px;
+  background-color: ${colors.primaryColor};
+  padding: 5px;
+  margin: 0px auto 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-size: 1.4em;
+    margin-right: 10px;
+  }
+`;
+
 export const Rodal = styled(Rodals)`
   position: absolute;
   p {

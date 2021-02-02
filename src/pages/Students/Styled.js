@@ -4,13 +4,18 @@ import 'rodal/lib/rodal.css';
 import { Link as Links } from 'react-router-dom';
 import * as colors from '../../config/colors';
 
-export const Title = styled.h1`
+export const Title = styled.div`
+  font-size: 1.6em;
   display: flex;
+  font-weight: bold;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  font-size: 1.6em;
+  flex-direction: row;
+  margin-bottom: 25px;
   color: ${colors.primaryColor};
+  span {
+    margin-left: 10px;
+  }
 `;
 
 export const StudentsContainer = styled.div`

@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FaEdit, FaUserGraduate, FaRegAddressCard } from 'react-icons/fa';
+import {
+  FaEdit,
+  FaUserGraduate,
+  FaRegAddressCard,
+  FaPlus,
+} from 'react-icons/fa';
 import { TiUserDelete } from 'react-icons/ti';
 import Loading from 'styled-content-loader';
 import {
@@ -12,9 +17,11 @@ import {
   Link,
   Rodal,
   Button,
+  AddStudent,
 } from './Styled';
 import { Container } from '../../styles/Global';
 import axios from '../../services/axios';
+import history from '../../services/history';
 import * as colors from '../../config/colors';
 
 export default function Students() {
@@ -121,6 +128,10 @@ export default function Students() {
               </Rodal>
             </Student>
           ))}
+          <AddStudent onClick={() => history.push('/student')}>
+            <span>Adicionar</span>
+            <FaPlus size={20} />
+          </AddStudent>
         </StudentsContainer>
       </Container>
     </Loading>

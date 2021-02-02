@@ -95,6 +95,7 @@ export default function ProfileUser() {
       <Container>
         <Title>
           <FaUserEdit size={60} />
+          <span>Meu Perfil</span>
         </Title>
         <Form ref={formRef} onSubmit={handleSubmit}>
           <span className="name">

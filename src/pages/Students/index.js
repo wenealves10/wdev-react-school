@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FaEdit, FaUserGraduate } from 'react-icons/fa';
-import { IoIosPeople } from 'react-icons/io';
+import { FaEdit, FaUserGraduate, FaRegAddressCard } from 'react-icons/fa';
 import { TiUserDelete } from 'react-icons/ti';
 import Loading from 'styled-content-loader';
 import {
@@ -70,7 +69,8 @@ export default function Students() {
     >
       <Container>
         <Title>
-          <IoIosPeople size={80} title="Escola Wdev" />
+          <FaRegAddressCard size={40} title="Escola Wdev" />
+          <span>Alunos matriculados</span>
         </Title>
 
         <StudentsContainer>

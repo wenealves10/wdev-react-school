@@ -8,6 +8,11 @@ import * as colors from '../../config/colors';
 
 export const Title = styled.h1`
   font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 25px;
 `;
 
 export const Form = styled(Unform)`

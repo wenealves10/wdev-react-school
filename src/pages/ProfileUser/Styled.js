@@ -136,7 +136,7 @@ export const Button = styled.button`
 `;
 
 export const Rodal = styled(Rodals)`
-  position: relative;
+  position: absolute;
   p {
     color: ${colors.primaryDarkColor};
   }

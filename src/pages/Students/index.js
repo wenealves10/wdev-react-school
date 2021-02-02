@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FaEdit, FaUserGraduate } from 'react-icons/fa';
 import { IoIosPeople } from 'react-icons/io';
 import { TiUserDelete } from 'react-icons/ti';
+import Loading from 'styled-content-loader';
 import {
   StudentsContainer,
   Title,
@@ -10,7 +11,8 @@ import {
   StudentProfilePhotograph,
   Photograph,
   Link,
-  Loading,
+  Rodal,
+  Button,
 } from './Styled';
 import { Container } from '../../styles/Global';
 import axios from '../../services/axios';
@@ -19,6 +21,7 @@ import * as colors from '../../config/colors';
 export default function Students() {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hide, setHide] = useState(false);
   useEffect(() => {
     async function getStudents() {
       try {
@@ -35,6 +38,30 @@ export default function Students() {
     getStudents();
   }, []);
 
+  async function handleDeleteStudent(id, index) {
+    const newStudents = [...students];
+    try {
+      setIsLoading(true);
+      await axios.delete(`/student/${id}`);
+      toast.success('Estudante Apagado com sucesso!', {
+        toastId: 'studentDel',
+      });
+      newStudents.splice(index, 1);
+      setStudents(newStudents);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error('Ocorreu um erro!', {
+        toastId: 'studentDel',
+      });
+      setIsLoading(false);
+    }
+  }
+
+  const handleClickModal = useCallback((e) => {
+    e.preventDefault();
+    setHide(true);
+  }, []);
+
   return (
     <Loading
       isLoading={isLoading}
@@ -43,12 +70,11 @@ export default function Students() {
     >
       <Container>
         <Title>
-          <IoIosPeople size={60} title="Escola Wdev" />
-          <span>Alunos</span>
+          <IoIosPeople size={80} title="Escola Wdev" />
         </Title>
 
         <StudentsContainer>
-          {students.map((student) => (
+          {students.map((student, index) => (
             <Student key={String(student.id)}>
               <Photograph>
                 {student.profiles ? (
@@ -64,14 +90,35 @@ export default function Students() {
                 <strong>{student.name}</strong>
                 <strong>{student.email}</strong>
               </span>
-              <span className="button">
+              <span className="actions">
                 <Link to={`/student/${student.id}`}>
-                  <FaEdit size={18} />
+                  <FaEdit size={20} color="#ff9966" />
                 </Link>
-                <Link to={`/student/${student.id}`}>
+                <Link to="/delete" onClick={handleClickModal}>
                   <TiUserDelete size={24} />
                 </Link>
               </span>
+              <Rodal
+                visible={hide}
+                onClose={() => setHide(false)}
+                animation="zoom"
+                showMask
+                duration={0}
+              >
+                <Title>Deseja apagar aluno?</Title>
+                <p style={{ marginTop: 50 }}>
+                  {student.name} {student.surname} <br />
+                  {student.email}
+                </p>
+                <div className="button-options">
+                  <Button
+                    onClick={() => handleDeleteStudent(student.id, index)}
+                  >
+                    Sim
+                  </Button>
+                  <Button onClick={() => setHide(false)}>Não</Button>
+                </div>
+              </Rodal>
             </Student>
           ))}
         </StudentsContainer>

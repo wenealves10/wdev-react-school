@@ -1,5 +1,11 @@
 import React from 'react';
-import { FaHome, FaSignOutAlt, FaUserAlt, FaUserLock } from 'react-icons/fa';
+import {
+  FaHome,
+  FaSignOutAlt,
+  FaUserAlt,
+  FaUserLock,
+  FaUserPlus,
+} from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -36,6 +42,10 @@ export default function Header() {
           <Link to="/profile/user">
             <FaUserAlt size={24} />
             <span>Perfil</span>
+          </Link>
+          <Link to="/register">
+            <FaUserPlus size={24} />
+            <span>Adicionar</span>
           </Link>
           <Link to="/logout" onClick={handleLogout}>
             <FaSignOutAlt size={24} />

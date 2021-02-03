@@ -58,7 +58,7 @@ export default function Login(props) {
     <Container>
       <Loading isLoading={isLoading} />
       <FaUserCircle size={50} />
-      <Title>Admin Wdev</Title>
+      <Title>Admin WeneDev</Title>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <span className="email">
           <FaAt size={24} />

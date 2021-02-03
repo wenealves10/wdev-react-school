@@ -28,6 +28,8 @@ export default function Students() {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hide, setHide] = useState(false);
+  const [studentID, setStudentID] = useState(0);
+  const [indexID, setIndexID] = useState(0);
   useEffect(() => {
     async function getStudents() {
       try {
@@ -55,17 +57,25 @@ export default function Students() {
       newStudents.splice(index, 1);
       setStudents(newStudents);
       setIsLoading(false);
+      setHide(false);
+      setStudentID(0);
+      setIndexID(0);
     } catch (error) {
       toast.error('Ocorreu um erro!', {
         toastId: 'studentDel',
       });
       setIsLoading(false);
+      setHide(false);
+      setStudentID(0);
+      setIndexID(0);
     }
   }
 
-  const handleClickModal = useCallback((e) => {
+  const handleClickModal = useCallback((e, ID, index) => {
     e.preventDefault();
     setHide(true);
+    setStudentID(ID);
+    setIndexID(index);
   }, []);
 
   return (
@@ -101,33 +111,37 @@ export default function Students() {
                 <Link to={`/student/${student.id}`}>
                   <FaEdit size={20} color="#ff9966" />
                 </Link>
-                <Link to="/delete" onClick={handleClickModal}>
+                <Link
+                  to="/delete"
+                  onClick={(e) => handleClickModal(e, student.id, index)}
+                >
                   <TiUserDelete size={24} />
                 </Link>
               </span>
-              <Rodal
-                visible={hide}
-                onClose={() => setHide(false)}
-                animation="zoom"
-                showMask
-                duration={0}
-              >
-                <Title>Deseja apagar aluno?</Title>
-                <p style={{ marginTop: 50 }}>
-                  {student.name} {student.surname} <br />
-                  {student.email}
-                </p>
-                <div className="button-options">
-                  <Button
-                    onClick={() => handleDeleteStudent(student.id, index)}
-                  >
-                    Sim
-                  </Button>
-                  <Button onClick={() => setHide(false)}>Não</Button>
-                </div>
-              </Rodal>
             </Student>
           ))}
+
+          <Rodal
+            visible={hide}
+            onClose={() => setHide(false)}
+            animation="zoom"
+            showMask
+            duration={0}
+          >
+            <Title>Deseja apagar aluno?</Title>
+            <p style={{ marginTop: 50 }}>
+              Se apagar esse aluno
+              <br />
+              você perdera tudo sobre ele!!
+            </p>
+            <div className="button-options">
+              <Button onClick={() => handleDeleteStudent(studentID, indexID)}>
+                Sim
+              </Button>
+              <Button onClick={() => setHide(false)}>Não</Button>
+            </div>
+          </Rodal>
+
           <AddStudent onClick={() => history.push('/student')}>
             <span>Adicionar</span>
             <FaPlus size={20} />

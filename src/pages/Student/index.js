@@ -21,6 +21,7 @@ import * as colors from '../../config/colors';
 import axios from '../../services/axios';
 import history from '../../services/history';
 import * as actions from '../../store/modules/Authentication/actions';
+import Photograph from '../../components/Photograph';
 
 export default function Student() {
   const { id } = useParams();
@@ -28,6 +29,7 @@ export default function Student() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadings, setIsLoadings] = useState(false);
   const dispatch = useDispatch();
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     if (!id) return;
@@ -36,6 +38,8 @@ export default function Student() {
         setIsLoadings(true);
         const response = await axios.get(`/student/${id}`);
         const student = get(response, 'data.student', {});
+        const urlProfile = get(student, 'profiles.url', '');
+        setUrl(urlProfile);
         formRef.current.setData(student);
         setIsLoadings(false);
       } catch (error) {
@@ -172,6 +176,7 @@ export default function Student() {
 
         <Title>
           <span>{id ? 'Editar Aluno' : 'Adicionar novo aluno'}</span>
+          <Photograph id={id || ''} url={url} />
         </Title>
         <Form ref={formRef} onSubmit={handleSubmit}>
           <span className="name">

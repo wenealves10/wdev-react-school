@@ -60,5 +60,5 @@ export const Container = styled.section`
   margin: 30px auto;
   border-radius: 8px;
   text-align: center;
-  padding: 40px;
+  padding: 30px;
 `;

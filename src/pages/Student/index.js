@@ -107,12 +107,12 @@ export default function Student() {
         };
         setIsLoading(true);
         if (!id) {
-          await axios.post('/student', datas);
+          const response = await axios.post('/student', datas);
           setIsLoading(false);
           toast.success('Aluno cadastrado com sucesso!', {
             toastId: 'student',
           });
-          history.push('/');
+          history.push(`/student/${response.data.student.id}`);
         } else {
           await axios.put(`/student/${id}`, datas);
           setIsLoading(false);

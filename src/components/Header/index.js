@@ -44,8 +44,8 @@ export default function Header() {
             <span>Perfil</span>
           </Link>
           <Link to="/register">
-            <FaUserPlus size={24} />
-            <span>Adicionar</span>
+            <FaUserPlus size={28} />
+            <span>Cadastrar</span>
           </Link>
           <Link to="/logout" onClick={handleLogout}>
             <FaSignOutAlt size={24} />

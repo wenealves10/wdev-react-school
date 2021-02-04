@@ -91,7 +91,7 @@ export const AddStudent = styled.button`
 `;
 
 export const Rodal = styled(Rodals)`
-  position: absolute;
+  /* position: absolute; */
   p {
     color: ${colors.primaryDarkColor};
   }

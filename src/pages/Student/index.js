@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import {
   FaPencilAlt,
@@ -19,12 +20,14 @@ import Loading from '../../components/Loading';
 import * as colors from '../../config/colors';
 import axios from '../../services/axios';
 import history from '../../services/history';
+import * as actions from '../../store/modules/Authentication/actions';
 
 export default function Student() {
   const { id } = useParams();
   const formRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadings, setIsLoadings] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!id) return;
@@ -42,18 +45,15 @@ export default function Student() {
           toast.error('Aluno não encontrado!');
           history.push('/');
         } else {
-          const errors = get(error, 'response.data.error', []);
-          errors.forEach((err) =>
-            toast.error(err, {
-              toastId: 'error',
-            })
-          );
-          history.push('/');
+          toast.error('É necessário novamente login!', {
+            toastId: 'login',
+          });
+          dispatch(actions.LoginFailure());
         }
       }
     }
     getData();
-  }, [id]);
+  }, [dispatch, id]);
 
   const handleSubmit = useCallback(
     async (data, { reset }) => {
@@ -131,10 +131,16 @@ export default function Student() {
 
           formRef.current.setErrors(errorMessages);
         } else {
+          const status = get(error, 'response.status', 0);
           const errors = get(error, 'response.data.errors', []);
           const errorr = get(error, 'response.data.error', []);
           setIsLoading(false);
-          if (errors.length > 0) {
+          if (status === 401) {
+            toast.error('É necessário novamente login!', {
+              toastId: 'login',
+            });
+            dispatch(actions.LoginFailure());
+          } else if (errors.length > 0) {
             errors.forEach((erro) =>
               toast.error(erro, {
                 toastId: 'erro',
@@ -152,7 +158,7 @@ export default function Student() {
         }
       }
     },
-    [id]
+    [dispatch, id]
   );
 
   return (

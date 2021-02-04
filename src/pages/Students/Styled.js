@@ -75,12 +75,12 @@ export const Button = styled.button`
 `;
 
 export const AddStudent = styled.button`
-  width: 70%;
+  width: 50%;
   height: 40px;
   border-radius: 4px;
   background-color: ${colors.primaryColor};
   padding: 5px;
-  margin: 0px auto 0px;
+  margin: 15px auto 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,6 @@ export const AddStudent = styled.button`
 `;
 
 export const Rodal = styled(Rodals)`
-  /* position: absolute; */
   p {
     color: ${colors.primaryDarkColor};
   }

@@ -97,7 +97,7 @@ export default function Students() {
                 {student.profiles ? (
                   <StudentProfilePhotograph
                     src={student.profiles.url}
-                    alt={student.profiles.filename}
+                    title={student.name}
                   />
                 ) : (
                   <FaUserGraduate size={35} />

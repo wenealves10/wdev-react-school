@@ -23,7 +23,7 @@ export default function Photograph({ id, url }) {
       formData.append('photo', photograph);
       try {
         setIsLoading(true);
-        if (!url) {
+        if (!urlEdit) {
           await axios.post(`/photo/student/${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -44,7 +44,7 @@ export default function Photograph({ id, url }) {
         });
       }
     },
-    [id, url]
+    [id, urlEdit]
   );
 
   if (!id) return <></>;

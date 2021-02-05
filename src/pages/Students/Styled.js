@@ -53,10 +53,15 @@ export const Photograph = styled.div`
   color: #aaa;
 `;
 
-export const StudentProfilePhotograph = styled.img`
+export const StudentProfilePhotograph = styled.div`
+  background-image: url(${(props) => props.src});
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 1px solid #ccc;
 `;
 
 export const Button = styled.button`

@@ -27,7 +27,7 @@ export default function Student() {
   const { id } = useParams();
   const formRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadings, setIsLoadings] = useState(false);
+  const [isLoadings, setIsLoadings] = useState(!!id);
   const dispatch = useDispatch();
   const [url, setUrl] = useState('');
 
@@ -35,7 +35,6 @@ export default function Student() {
     if (!id) return;
     async function getData() {
       try {
-        setIsLoadings(true);
         const response = await axios.get(`/student/${id}`);
         const student = get(response, 'data.student', {});
         const urlProfile = get(student, 'profiles.url', '');

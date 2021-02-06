@@ -5,6 +5,7 @@ import {
   FaUserGraduate,
   FaRegAddressCard,
   FaPlus,
+  FaBook,
 } from 'react-icons/fa';
 import { TiUserDelete } from 'react-icons/ti';
 import Loading from 'styled-content-loader';
@@ -108,8 +109,11 @@ export default function Students() {
                 <strong>{student.email}</strong>
               </span>
               <span className="actions">
+                <Link to={`/report/student/${student.id}`}>
+                  <FaBook size={20} color={colors.infoColor} />
+                </Link>
                 <Link to={`/student/${student.id}`}>
-                  <FaEdit size={20} color="#ff9966" />
+                  <FaEdit size={20} color={colors.errorColor} />
                 </Link>
                 <Link
                   to="/delete"

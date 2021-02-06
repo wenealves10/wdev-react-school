@@ -1,7 +1,67 @@
 import styled from 'styled-components';
+import * as colors from '../../config/colors';
 
-export const Title = styled.h1`
+export const Title = styled.div`
   font-size: 1.6em;
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 24px;
+  color: ${colors.primaryColor};
+  span {
+    margin-left: 10px;
+  }
+`;
+
+export const ContainerStudentReport = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Picture = styled.div`
+  width: 164px;
+  height: 164px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-top: 24px;
+  margin-left: 60px;
+`;
+
+export const Line = styled.div`
+  background-color: ${colors.primaryColor};
+  width: 98%;
+  height: 2px;
+  margin: 0px auto;
+`;
+
+export const StudentData = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 24px;
+  span {
+    font-size: 1em;
+    font-weight: bold;
+  }
+`;
+
+export const StudentNames = styled.div`
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+export const StudentCaracteres = styled.div`
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 export const Button = styled.button`
@@ -9,4 +69,14 @@ export const Button = styled.button`
   height: 40px;
   margin-top: 18px;
   margin-bottom: 20px;
+`;
+
+export const Container = styled.section`
+  max-width: 900px;
+  min-width: 508px;
+  background: #fff;
+  margin: 30px auto;
+  border-radius: 8px;
+  text-align: center;
+  padding: 30px;
 `;

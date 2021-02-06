@@ -21,6 +21,7 @@ export const Photographs = styled.div`
   width: 180px;
   height: 180px;
   border-radius: 50%;
+  border: 1px solid #ccc;
 `;
 
 export const ActionEdit = styled.div`

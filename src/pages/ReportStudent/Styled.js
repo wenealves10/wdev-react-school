@@ -19,13 +19,19 @@ export const ContainerStudentReport = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: ${colors.primaryDarkColor};
 `;
 
 export const Picture = styled.div`
   width: 164px;
   height: 164px;
   border-radius: 50%;
+  background-image: url(${(props) => props.src});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: #ccc;
+  border: 1px solid #ccc;
   margin-top: 24px;
   margin-left: 60px;
 `;

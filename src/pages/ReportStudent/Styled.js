@@ -86,3 +86,33 @@ export const Container = styled.section`
   text-align: center;
   padding: 30px;
 `;
+
+export const ContainerDiscipline = styled.div`
+  width: 98%;
+`;
+
+export const Disciplines = styled.div`
+  margin-top: 10px;
+  div + div {
+    border-top: 1px solid #eee;
+  }
+`;
+
+export const Table = styled.table`
+  width: 98%;
+  margin: 0px auto;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  td {
+    color: ${colors.primaryDarkColor};
+  }
+  span.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+`;

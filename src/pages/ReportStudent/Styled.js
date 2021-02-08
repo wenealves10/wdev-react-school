@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Rodals from 'rodal';
+import 'rodal/lib/rodal.css';
 import * as colors from '../../config/colors';
 
 export const Title = styled.div`
@@ -71,10 +73,18 @@ export const StudentCaracteres = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 100px;
+  width: 40%;
   height: 40px;
-  margin-top: 18px;
-  margin-bottom: 20px;
+  background-color: ${colors.primaryColor};
+  padding: 5px;
+  margin: 0px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 1.4em;
+    margin-left: 10px;
+  }
 `;
 
 export const Container = styled.section`
@@ -100,7 +110,7 @@ export const Disciplines = styled.div`
 
 export const Table = styled.table`
   width: 98%;
-  margin: 0px auto;
+  margin: 15px auto;
   border-collapse: collapse;
   th,
   td {
@@ -114,5 +124,20 @@ export const Table = styled.table`
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+`;
+
+export const Rodal = styled(Rodals)`
+  p {
+    color: ${colors.primaryDarkColor};
+  }
+  div.button-options {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    button {
+      width: 30%;
+    }
   }
 `;

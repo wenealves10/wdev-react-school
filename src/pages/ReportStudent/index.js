@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -7,6 +7,7 @@ import {
   FaClipboardCheck,
   FaEdit,
   FaTrash,
+  FaPlus,
 } from 'react-icons/fa';
 import { get } from 'lodash';
 import { toast } from 'react-toastify';
@@ -23,6 +24,8 @@ import {
   ContainerDiscipline,
   Disciplines,
   Table,
+  Button,
+  Rodal,
 } from './Styled';
 import * as actions from '../../store/modules/Authentication/actions';
 import * as colors from '../../config/colors';
@@ -35,6 +38,9 @@ export default function ReportStudent() {
   const [picture, setPicture] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [reports, setReports] = useState([]);
+  const [reportId, setReportId] = useState(0);
+  const [reportIndexCurrent, setReportIndexCurrent] = useState(0);
+  const [isHideModal, setIsHideModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,6 +70,37 @@ export default function ReportStudent() {
     };
     getData();
   }, [dispatch, id]);
+
+  const handleDeleteReport = useCallback(async () => {
+    const reportStudent = [...reports];
+    try {
+      setIsHideModal(false);
+      setIsLoading(true);
+      await axios.delete(`report/${reportId}/student/${id}`);
+      toast.success('Matéria apagada com sucesso!', {
+        toastId: 'reportDelete',
+      });
+      reportStudent.splice(reportIndexCurrent, 1);
+      setReports(reportStudent);
+      setReportId(0);
+      setReportIndexCurrent(0);
+      setIsLoading(false);
+    } catch {
+      toast.error('Ocorreu um erro!', {
+        toastId: 'studentDel',
+      });
+      setReportId(0);
+      setReportIndexCurrent(0);
+      setIsLoading(false);
+    }
+  }, [id, reportId, reportIndexCurrent, reports]);
+
+  const handleTrashClickModal = useCallback(async (e, idReport, index) => {
+    e.preventDefault();
+    setIsHideModal(true);
+    setReportId(idReport);
+    setReportIndexCurrent(index);
+  }, []);
 
   return (
     <Container>
@@ -109,7 +146,7 @@ export default function ReportStudent() {
               </tr>
             </thead>
             <tbody>
-              {reports.map((report) => (
+              {reports.map((report, index) => (
                 <tr>
                   <td>{report.matter}</td>
                   <td>{report.note_1}</td>
@@ -122,7 +159,12 @@ export default function ReportStudent() {
                       <Link to="/">
                         <FaEdit size={24} color={colors.infoColor} />
                       </Link>
-                      <Link to="/">
+                      <Link
+                        to="/delete"
+                        onClick={(e) =>
+                          handleTrashClickModal(e, report.id, index)
+                        }
+                      >
                         <FaTrash size={20} />
                       </Link>
                     </span>
@@ -131,6 +173,36 @@ export default function ReportStudent() {
               ))}
             </tbody>
           </Table>
+
+          <Rodal
+            visible={isHideModal}
+            onClose={() => setIsHideModal(false)}
+            animation="zoom"
+            showMask
+            duration={0}
+          >
+            <Title>Deseja apagar a matéria?</Title>
+            <p style={{ marginTop: 50 }}>
+              Se apagar, essa disciplina
+              <br />
+              você perdera tudo sobre ele!!
+            </p>
+            <div className="button-options">
+              <Button
+                onClick={() => {
+                  handleDeleteReport();
+                }}
+              >
+                Sim
+              </Button>
+              <Button onClick={() => setIsHideModal(false)}>Não</Button>
+            </div>
+          </Rodal>
+
+          <Button>
+            <FaPlus size={24} />
+            <span>Adicionar</span>
+          </Button>
         </Disciplines>
       </ContainerDiscipline>
     </Container>

@@ -47,26 +47,25 @@ export default function Students() {
     getStudents();
   }, []);
 
-  async function handleDeleteStudent(id, index) {
+  async function handleDeleteStudent() {
     const newStudents = [...students];
     try {
+      setHide(false);
       setIsLoading(true);
-      await axios.delete(`/student/${id}`);
+      await axios.delete(`/student/${studentID}`);
       toast.success('Estudante Apagado com sucesso!', {
         toastId: 'studentDel',
       });
-      newStudents.splice(index, 1);
+      newStudents.splice(indexID, 1);
       setStudents(newStudents);
       setIsLoading(false);
-      setHide(false);
       setStudentID(0);
       setIndexID(0);
-    } catch (error) {
+    } catch {
       toast.error('Ocorreu um erro!', {
         toastId: 'studentDel',
       });
       setIsLoading(false);
-      setHide(false);
       setStudentID(0);
       setIndexID(0);
     }
@@ -139,9 +138,7 @@ export default function Students() {
               você perdera tudo sobre ele!!
             </p>
             <div className="button-options">
-              <Button onClick={() => handleDeleteStudent(studentID, indexID)}>
-                Sim
-              </Button>
+              <Button onClick={() => handleDeleteStudent()}>Sim</Button>
               <Button onClick={() => setHide(false)}>Não</Button>
             </div>
           </Rodal>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -9,9 +9,11 @@ import {
   FaTrash,
   FaPlus,
 } from 'react-icons/fa';
+import * as Yup from 'yup';
 import { get } from 'lodash';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
+import Input from '../../components/Form/Input';
 import {
   Title,
   Line,
@@ -26,21 +28,31 @@ import {
   Table,
   Button,
   Rodal,
+  Form,
 } from './Styled';
 import * as actions from '../../store/modules/Authentication/actions';
 import * as colors from '../../config/colors';
 import axios from '../../services/axios';
 import history from '../../services/history';
 
+const initialData = {
+  note_1: 0,
+  note_2: 0,
+  note_3: 0,
+  note_4: 0,
+};
+
 export default function ReportStudent() {
   const { id } = useParams();
+  const formRef = useRef(null);
   const [student, setStudent] = useState(0);
   const [picture, setPicture] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [reports, setReports] = useState([]);
   const [reportId, setReportId] = useState(0);
   const [reportIndexCurrent, setReportIndexCurrent] = useState(0);
-  const [isHideModal, setIsHideModal] = useState(false);
+  const [isHideModalDeleteReport, setIsHideModalDeleteReport] = useState(false);
+  const [isHideModalCreateReport, setIsHideModalCreateReport] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,12 +81,56 @@ export default function ReportStudent() {
       }
     };
     getData();
-  }, [dispatch, id]);
+  }, [dispatch, id, isLoading]);
+
+  const handleSubmitReport = useCallback(async (data, { reset }) => {
+    try {
+      const schema = Yup.object().shape({
+        matter: Yup.string()
+          .min(4, 'no mínimo 4 caracteres')
+          .max(255, 'no máximo 255 caracteres')
+          .required('Máteria obrigátorio'),
+        note_1: Yup.number()
+          .typeError('Somente números')
+          .max(10, 'no máximo 10'),
+        note_2: Yup.number()
+          .typeError('Somente números')
+          .max(10, 'no máximo 10'),
+        note_3: Yup.number()
+          .typeError('Somente números')
+          .max(10, 'no máximo 10'),
+        note_4: Yup.number()
+          .typeError('Somente números')
+          .max(10, 'no máximo 10'),
+      });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+      reset();
+      formRef.current.setErrors({});
+      formRef.current.setData(initialData);
+      setIsHideModalCreateReport(false);
+      setIsLoading(true);
+      const response = await axios.post(`/report/student/${96}`, data);
+      setIsLoading(false);
+      toast.success('Matéria cadastrada com sucesso!');
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errorMessages = {};
+        error.inner.forEach((erro) => {
+          errorMessages[erro.path] = erro.message;
+          formRef.current.clearField(erro.path);
+        });
+
+        formRef.current.setErrors(errorMessages);
+      }
+    }
+  }, []);
 
   const handleDeleteReport = useCallback(async () => {
     const reportStudent = [...reports];
     try {
-      setIsHideModal(false);
+      setIsHideModalDeleteReport(false);
       setIsLoading(true);
       await axios.delete(`report/${reportId}/student/${id}`);
       toast.success('Matéria apagada com sucesso!', {
@@ -97,7 +153,7 @@ export default function ReportStudent() {
 
   const handleTrashClickModal = useCallback(async (e, idReport, index) => {
     e.preventDefault();
-    setIsHideModal(true);
+    setIsHideModalDeleteReport(true);
     setReportId(idReport);
     setReportIndexCurrent(index);
   }, []);
@@ -105,13 +161,17 @@ export default function ReportStudent() {
   return (
     <Container>
       <Loading isLoading={isLoading} />
+
       <Title>
         <FaBookReader size={40} />
         <span>Boletim Escolar</span>
       </Title>
+
       <Line />
+
       <ContainerStudentReport>
         <Picture src={picture} />
+
         <StudentData>
           <StudentNames>
             <span className="name-student">Nome: {student.name}</span>
@@ -127,11 +187,13 @@ export default function ReportStudent() {
           <span className="email-student">E-mail: {student.email}</span>
         </StudentData>
       </ContainerStudentReport>
+
       <ContainerDiscipline>
         <Title>
           <FaClipboardCheck size={30} />
           <span>Disciplinas</span>
         </Title>
+
         <Disciplines>
           <Table>
             <thead>
@@ -147,7 +209,7 @@ export default function ReportStudent() {
             </thead>
             <tbody>
               {reports.map((report, index) => (
-                <tr>
+                <tr key={report.id}>
                   <td>{report.matter}</td>
                   <td>{report.note_1}</td>
                   <td>{report.note_2}</td>
@@ -175,8 +237,48 @@ export default function ReportStudent() {
           </Table>
 
           <Rodal
-            visible={isHideModal}
-            onClose={() => setIsHideModal(false)}
+            visible={isHideModalCreateReport}
+            onClose={() => setIsHideModalCreateReport(false)}
+            animation="zoom"
+            showMask
+            duration={0}
+          >
+            <Title>Cadastrar matéria</Title>
+            <Form
+              ref={formRef}
+              onSubmit={handleSubmitReport}
+              initialData={initialData}
+            >
+              <Input
+                name="matter"
+                type="text"
+                placeholder="Matéria"
+                id="matter"
+              />
+              <div className="notes">
+                <Input name="note_1" type="text" placeholder="nota 1" />
+                <Input name="note_2" type="text" placeholder="nota 2" />
+                <Input name="note_3" type="text" placeholder="nota 3" />
+                <Input name="note_4" type="text" placeholder="nota 4" />
+              </div>
+              <div className="button-options">
+                <Button type="submit">Salvar</Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setIsHideModalCreateReport(false);
+                    formRef.current.setErrors({});
+                  }}
+                >
+                  Não Salvar
+                </Button>
+              </div>
+            </Form>
+          </Rodal>
+
+          <Rodal
+            visible={isHideModalDeleteReport}
+            onClose={() => setIsHideModalDeleteReport(false)}
             animation="zoom"
             showMask
             duration={0}
@@ -195,11 +297,13 @@ export default function ReportStudent() {
               >
                 Sim
               </Button>
-              <Button onClick={() => setIsHideModal(false)}>Não</Button>
+              <Button onClick={() => setIsHideModalDeleteReport(false)}>
+                Não
+              </Button>
             </div>
           </Rodal>
 
-          <Button>
+          <Button onClick={() => setIsHideModalCreateReport(true)}>
             <FaPlus size={24} />
             <span>Adicionar</span>
           </Button>

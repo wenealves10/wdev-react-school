@@ -57,7 +57,7 @@ export const Container = styled.section`
   max-width: 700px;
   min-width: 508px;
   background: #fff;
-  margin: 30px auto;
+  margin: 15px auto;
   border-radius: 8px;
   text-align: center;
   padding: 30px;

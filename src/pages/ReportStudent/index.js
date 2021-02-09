@@ -134,6 +134,7 @@ export default function ReportStudent() {
           });
           toast.success(`Matéria cadastrada com sucesso!${reportId}`);
         }
+        setReportId(0);
         setIsLoading(false);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {

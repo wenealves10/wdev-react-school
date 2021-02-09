@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -36,6 +37,7 @@ import axios from '../../services/axios';
 import history from '../../services/history';
 
 const initialData = {
+  matter: '',
   note_1: 0,
   note_2: 0,
   note_3: 0,
@@ -83,49 +85,70 @@ export default function ReportStudent() {
     getData();
   }, [dispatch, id, isLoading]);
 
-  const handleSubmitReport = useCallback(async (data, { reset }) => {
-    try {
-      const schema = Yup.object().shape({
-        matter: Yup.string()
-          .min(4, 'no mínimo 4 caracteres')
-          .max(255, 'no máximo 255 caracteres')
-          .required('Máteria obrigátorio'),
-        note_1: Yup.number()
-          .typeError('Somente números')
-          .max(10, 'no máximo 10'),
-        note_2: Yup.number()
-          .typeError('Somente números')
-          .max(10, 'no máximo 10'),
-        note_3: Yup.number()
-          .typeError('Somente números')
-          .max(10, 'no máximo 10'),
-        note_4: Yup.number()
-          .typeError('Somente números')
-          .max(10, 'no máximo 10'),
-      });
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-      reset();
-      formRef.current.setErrors({});
-      formRef.current.setData(initialData);
-      setIsHideModalCreateReport(false);
-      setIsLoading(true);
-      const response = await axios.post(`/report/student/${96}`, data);
-      setIsLoading(false);
-      toast.success('Matéria cadastrada com sucesso!');
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        const errorMessages = {};
-        error.inner.forEach((erro) => {
-          errorMessages[erro.path] = erro.message;
-          formRef.current.clearField(erro.path);
+  const handleSubmitReport = useCallback(
+    async (data, { reset }) => {
+      try {
+        const schema = Yup.object().shape({
+          matter: Yup.string()
+            .min(4, 'no mínimo 4 caracteres')
+            .max(255, 'no máximo 255 caracteres')
+            .required('Máteria obrigátorio'),
+          note_1: Yup.number()
+            .typeError('Somente números')
+            .max(10, 'no máximo 10'),
+          note_2: Yup.number()
+            .typeError('Somente números')
+            .max(10, 'no máximo 10'),
+          note_3: Yup.number()
+            .typeError('Somente números')
+            .max(10, 'no máximo 10'),
+          note_4: Yup.number()
+            .typeError('Somente números')
+            .max(10, 'no máximo 10'),
         });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        reset();
+        formRef.current.setErrors({});
+        formRef.current.setData(initialData);
+        setIsHideModalCreateReport(false);
+        setIsLoading(true);
+        const { matter, note_1, note_2, note_3, note_4 } = data;
+        if (reportId) {
+          const response = await axios.put(`report/${reportId}/student/${id}`, {
+            matter,
+            note_1: parseFloat(note_1, 10),
+            note_2: parseFloat(note_2, 10),
+            note_3: parseFloat(note_3, 10),
+            note_4: parseFloat(note_4, 10),
+          });
+          toast.success('Matéria atualizada com sucesso!');
+        } else {
+          const response = await axios.post(`report/student/${id}`, {
+            matter,
+            note_1: parseFloat(note_1, 10),
+            note_2: parseFloat(note_2, 10),
+            note_3: parseFloat(note_3, 10),
+            note_4: parseFloat(note_4, 10),
+          });
+          toast.success(`Matéria cadastrada com sucesso!${reportId}`);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errorMessages = {};
+          error.inner.forEach((erro) => {
+            errorMessages[erro.path] = erro.message;
+            formRef.current.clearField(erro.path);
+          });
 
-        formRef.current.setErrors(errorMessages);
+          formRef.current.setErrors(errorMessages);
+        }
       }
-    }
-  }, []);
+    },
+    [id, reportId]
+  );
 
   const handleDeleteReport = useCallback(async () => {
     const reportStudent = [...reports];
@@ -151,11 +174,22 @@ export default function ReportStudent() {
     }
   }, [id, reportId, reportIndexCurrent, reports]);
 
-  const handleTrashClickModal = useCallback(async (e, idReport, index) => {
+  const handleEditClickReport = useCallback(
+    (e, idReport, indexReport) => {
+      e.preventDefault();
+      setIsHideModalCreateReport(true);
+      setReportId(idReport);
+      const { matter, note_1, note_2, note_3, note_4 } = reports[indexReport];
+      formRef.current.setData({ matter, note_1, note_2, note_3, note_4 });
+    },
+    [reports]
+  );
+
+  const handleTrashClickModal = useCallback((e, idReport, indexReport) => {
     e.preventDefault();
     setIsHideModalDeleteReport(true);
     setReportId(idReport);
-    setReportIndexCurrent(index);
+    setReportIndexCurrent(indexReport);
   }, []);
 
   return (
@@ -218,7 +252,12 @@ export default function ReportStudent() {
                   <td>{parseFloat(report.average, 10).toFixed(2)}</td>
                   <td>
                     <span className="actions">
-                      <Link to="/">
+                      <Link
+                        to="/edit"
+                        onClick={(e) =>
+                          handleEditClickReport(e, report.id, index)
+                        }
+                      >
                         <FaEdit size={24} color={colors.infoColor} />
                       </Link>
                       <Link
@@ -268,6 +307,7 @@ export default function ReportStudent() {
                   onClick={() => {
                     setIsHideModalCreateReport(false);
                     formRef.current.setErrors({});
+                    formRef.current.setData(initialData);
                   }}
                 >
                   Não Salvar

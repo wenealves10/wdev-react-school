@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Form as Unform } from '@unform/web';
 import Rodals from 'rodal';
 import 'rodal/lib/rodal.css';
 import * as colors from '../../config/colors';
@@ -72,8 +73,72 @@ export const StudentCaracteres = styled.div`
   margin-bottom: 20px;
 `;
 
+export const Form = styled(Unform)`
+  input[id='matter'] {
+    width: 100%;
+    outline: none;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    transition: 250ms;
+    border: 1px solid ${colors.primaryDarkColor};
+    &:focus {
+      border: 1px solid ${colors.infoColor};
+    }
+  }
+
+  span.matter-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+  }
+  span.note_1-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+  }
+  span.note_2-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+  }
+  span.note_3-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+  }
+  span.note_4-error {
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: ${colors.primaryColor};
+  }
+
+  div.notes {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 5px auto;
+    input[type='text'] {
+      outline: none;
+      height: 30px;
+      width: 30%;
+      line-height: 30px;
+      padding: 0 10px;
+      margin-left: 2px;
+      transition: 250ms;
+      border: 1px solid ${colors.primaryDarkColor};
+      &:focus {
+        border: 1px solid ${colors.infoColor};
+      }
+    }
+  }
+`;
+
 export const Button = styled.button`
-  width: 40%;
+  width: 30%;
   height: 40px;
   background-color: ${colors.primaryColor};
   padding: 5px;
@@ -91,10 +156,10 @@ export const Container = styled.section`
   max-width: 900px;
   min-width: 508px;
   background: #fff;
-  margin: 30px auto;
+  margin: 15px auto;
   border-radius: 8px;
   text-align: center;
-  padding: 30px;
+  padding: 20px;
 `;
 
 export const ContainerDiscipline = styled.div`
